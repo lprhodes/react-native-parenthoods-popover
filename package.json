@@ -1,0 +1,27 @@
+{
+  "name": "react-native-popover",
+  "version": "0.0.1",
+  "description": "A <Popover /> component for react-native used in Parenthoods",
+  "main": "Popover.js",
+  "author": "Luke Rhodes <rhodesy22@gmail.com> (https://github.com/lprhodes)",
+  "keywords": [
+    "react-component",
+    "react-native",
+    "ios",
+    "ui",
+    "popover",
+    "modal"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lprhodes/react-native-parenthoods-popover.git"
+  },
+  "devDependencies": {
+    "react": "^15.0.2",
+    "react-native": "^0.26.2"
+  }
+}
