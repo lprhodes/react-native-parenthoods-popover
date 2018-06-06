@@ -2,40 +2,28 @@
 
 import autobind from 'autobind-decorator'
 import * as Animatable from 'react-native-animatable'
-import ElevatedView from 'fiber-react-native-elevated-view'
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
 import {
   StyleSheet,
-  Dimensions,
-  Animated,
-  Text,
   TouchableWithoutFeedback,
   View,
-  Easing,
-  findNodeHandle
-} from 'react-native';
+} from 'react-native'
 
-var noop = () => {};
-
-var {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = Dimensions.get('window');
-var DEFAULT_ARROW_SIZE = new Size(10, 5);
-
-function Point(x, y) {
-  this.x = x;
-  this.y = y;
-}
-
-function Size(width, height) {
-  this.width = width;
-  this.height = height;
-}
-
-function Rect(x, y, width, height) {
-  this.x = x;
-  this.y = y;
-  this.width = width;
-  this.height = height;
-}
+Animatable.initializeRegistryWithDefinitions({
+  popoverMenuAnimation: {
+    '0': {
+      opacity: 0,
+      scale: 0.5,
+    },
+    '0.65': {
+      scale: 1.08,
+    },
+    '1': {
+      opacity: 1,
+      scale: 1,
+    },
+  }
+});
 
 class Popover extends PureComponent {
 
@@ -45,15 +33,12 @@ class Popover extends PureComponent {
   }
 
   render () {
-    const { displayArea, isVisible, rect } = this.props
+    const { isVisible, rect, backgroundColor } = this.props
 
-    if (!isVisible) {
-      return null;
-    }
+    if (!isVisible) return null
 
     const widthStyle = { }
-
-    let positionStyle = !this.props.ignoreContentPosition ? (((rect.y + 180) > ScreenSize.contentHeight - 80) ? { top: rect.y - 160 - 4 } : { top: rect.y + 8 }) : { top: rect.y + 8 }
+    let positionStyle = { top: rect.top }
 
     if (rect.left) {
       positionStyle.left = rect.left
@@ -61,13 +46,13 @@ class Popover extends PureComponent {
       positionStyle.right = rect.right || 8
     }
 
+    const backgroundColorStyle = backgroundColor ? { backgroundColor } : null
+
     return (
       <TouchableWithoutFeedback onPress={this.onClosePress} style={{ zIndex: 800, }}>
         <View style={[ styles.container ]}>
-          <Animatable.View animation="mainMenuButtonAnimation" duration={300} style={[ styles.content, widthStyle, positionStyle ]} ref="menu">
-            <View
-              style={styles.contentInner}
-            >
+          <Animatable.View animation="popoverMenuAnimation" duration={300} style={[ styles.content, widthStyle, positionStyle ]} ref="menu">
+            <View style={[ styles.contentInner, backgroundColorStyle ]}>
               {this.props.children}
             </View>
           </Animatable.View>
@@ -92,21 +77,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   
-    content: {
-      backgroundColor: 'transparent',
-      zIndex: 101,
-      position: 'absolute'
-    },
-    
-    contentInner: {
-      borderRadius: 5,
-      backgroundColor: GlobalStyles().backgroundColor,
-      paddingVertical: 2,
-      shadowOffset: { width: 0, height: 0 },
-      shadowRadius: 4,
-      shadowOpacity: 0.1,
-      zIndex: 102,
-    }
-});
+  content: {
+    backgroundColor: 'transparent',
+    zIndex: 101,
+    position: 'absolute'
+  },
+  
+  contentInner: {
+    borderRadius: 5,
+    paddingVertical: 2,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 4,
+    shadowOpacity: 0.1,
+    zIndex: 102,
+  }
+})
 
-module.exports = Popover;
+module.exports = Popover

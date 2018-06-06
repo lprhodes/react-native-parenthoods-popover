@@ -1,9 +1,9 @@
 {
   "name": "react-native-parenthoods-popover",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A <Popover /> component for react-native used in Parenthoods",
   "main": "Popover.js",
-  "author": "Luke Rhodes <rhodesy22@gmail.com> (https://github.com/lprhodes)",
+  "author": "Luke Rhodes <lukerhodes27@gmail.com> (https://github.com/lprhodes)",
   "keywords": [
     "react-component",
     "react-native",
@@ -19,6 +19,10 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:lprhodes/react-native-parenthoods-popover.git"
+  },
+  "dependencies": {
+    "autobind-decorator": "lprhodes/autobind-decorator.git",
+    "react-native-animatable": "^1.3.0"
   },
   "devDependencies": {
     "react": "^15.0.2",
